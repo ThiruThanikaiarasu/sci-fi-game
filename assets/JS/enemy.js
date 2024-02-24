@@ -2,7 +2,8 @@ class Enemy {
     constructor(game) {
         this.game = game
         this.x = Math.random() * this.game.width
-        this.y = Math.random() * this.game.height
+        this.y = -this.height
+        // this.y = Math.random() * this.game.height
         this.speedX = 0 
         this.speedY = Math.random() * 4 + 1
         this.width = 50;
@@ -20,6 +21,12 @@ class Enemy {
     }
     update(){
         if(!this.free){
+            // float in 
+            if (this.y < 0) this.y += 5
+            // make sure always visible
+            if (this.x > this.game.width - this.width){
+                this.x = this.game.width - this.width
+            }
             this.x += this.speedX
             this.y += this.speedY
 

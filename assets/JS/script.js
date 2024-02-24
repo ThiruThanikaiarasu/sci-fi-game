@@ -6,11 +6,28 @@ class Game {
         this.width = this.canvas.width // width and height of the class is always same as canvas 
         this.enemyPool = []
         this.numberOfEnemies = 50 
+        this.createEnemyPool()
+        this.enemyTimer = 0 
+        this.enemyInterval = 1000
+
+        this.mouse = {
+            x: undefined,
+            y: undefined,
+            pressed: false
+        }
+
         this.start()
 
         window.addEventListener('resize', e => { // arrow function inherit from parent class
             console.log(e)
             this.resize(e.target.innerWidth, e.target.innerHeight)
+        })
+
+        window.addEventListener('mousedown', e => {
+            // e.preventDefault()
+            this.mouse.x = e.x
+            this.mouse.y = e.y
+            console.log(e)
         })
     }
 
@@ -30,18 +47,28 @@ class Game {
             this.enemyPool.push(new Enemy(this))
         }
     }
-    render(){
-        this.ctx.fillRect(this.posX, 100, 50, 150)
-        this.enemy1.draw()
-        this.enemy1.update()
-        this.enemy2.draw()
-        this.enemy2.update()
-        this.enemy3.draw()
-        this.enemy3.update()
-        this.enemy4.draw()
-        this.enemy4.update()
-        this.enemy5.draw()
-        this.enemy5.update()
+    getEnemy(){
+        for(let i = 0; i < this.enemyPool.length; i++){
+            if (this.enemyPool[i].free) return this.enemyPool[i]
+        }
+    }
+    handleEnemies(deltaTime){
+        if(this.enemyTimer < this.enemyInterval) {
+            this.enemyTimer += deltaTime
+        } else {
+            this.enemyTimer = 0 
+            const enemy = this.getEnemy()
+            if (enemy) enemy.start()
+            console.log(enemy)
+        }
+
+    }
+    render(deltaTime){
+        this.handleEnemies(deltaTime)
+        this.enemyPool.forEach(enemy => {
+            enemy.update()
+            enemy.draw()
+        })
     }
 }
 
@@ -54,9 +81,12 @@ window.addEventListener('load', function(){ // once everything is loaded, css, a
 
     const game = new Game(canvas, ctx) // creating a instance of a Game 
     
-    function animate(){
+    let lastTime = 0 
+    function animate(timeStamp){
+        const deltaTime = timeStamp - lastTime
+        lastTime = timeStamp
         ctx.clearRect(0, 0, canvas.width, canvas.height)
-        game.render()
+        game.render(deltaTime)
         requestAnimationFrame(animate)
     }
     this.requestAnimationFrame(animate)
