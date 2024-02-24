@@ -4,11 +4,8 @@ class Game {
         this.ctx = ctx
         this.height = this.canvas.height
         this.width = this.canvas.width // width and height of the class is always same as canvas 
-        this.enemy1 = new Enemy(this)
-        this.enemy2 = new Enemy(this)
-        this.enemy3 = new Enemy(this)
-        this.enemy4 = new Enemy(this)
-        this.enemy5 = new Enemy(this)
+        this.enemyPool = []
+        this.numberOfEnemies = 50 
         this.start()
 
         window.addEventListener('resize', e => { // arrow function inherit from parent class
@@ -28,7 +25,11 @@ class Game {
         this.height = height
         this.ctx.fillStyle = 'green'
     }
-
+    createEnemyPool(){
+        for (let i = 0; i < this.numberOfEnemies; i++){
+            this.enemyPool.push(new Enemy(this))
+        }
+    }
     render(){
         this.ctx.fillRect(this.posX, 100, 50, 150)
         this.enemy1.draw()
