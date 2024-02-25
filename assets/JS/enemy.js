@@ -1,8 +1,10 @@
 class Enemy {
     constructor(game){
         this.game = game;
-        this.width = 50;
-        this.height = 50;
+        this.spriteWidth = 100;
+        this.spriteHeight = 100; 
+        this.width = this.spriteWidth;
+        this.height = this.spriteHeight;
         this.x;
         this.y;
         this.speedX;
@@ -53,8 +55,9 @@ class Enemy {
     }
     draw(){
         if (!this.free){
-            this.game.ctx.drawImage(this.image, this.x, this.y)
-             this.game.ctx.strokeRect(this.x, this.y, this.width, this.height);
+            // this.game.ctx.drawImage(this.image, this.x, this.y)
+            this.game.ctx.drawImage(this.image, 0, 0,this.spriteWidth, this.spriteHeight, this.x, this.y, this.width, this.height)
+            this.game.ctx.strokeRect(this.x, this.y, this.width, this.height);
             this.game.ctx.fillText(this.lives, this.x + this.width * 0.5, this.y + this.height * 0.5);
         }
     }
