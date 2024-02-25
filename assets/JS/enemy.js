@@ -5,15 +5,14 @@ class Enemy {
         this.height = 50;
         this.x;
         this.y;
-        this.speedX = 0;
-        this.speedY = Math.random() * 2 + 0.2;
+        this.speedX;
+        this.speedY;
         this.lives;
         this.free = true;
     }
     start(){
         this.x = Math.random() * this.game.width;
         this.y = -this.height;
-        this.lives = 2;
         this.free = false;
     }
     reset(){
@@ -21,6 +20,12 @@ class Enemy {
     }
     isAlive(){
         return this.lives >= 1;
+    }
+    hit(){
+        if (this.game.checkCollision(this, this.game.mouse) && this.game.mouse.pressed && !this.game.mouse.fired){
+            this.lives--;
+            this.game.mouse.fired = true;
+        }
     }
     update(){
         if (!this.free){
@@ -35,10 +40,7 @@ class Enemy {
             this.y += this.speedY;
 
             // check collision
-            if (this.game.checkCollision(this, this.game.mouse) && this.game.mouse.pressed && !this.game.mouse.fired){
-                this.lives--;
-                this.game.mouse.fired = true;
-            }
+            
             if (!this.isAlive()){
                 this.reset();
                 this.game.score++;
@@ -51,8 +53,31 @@ class Enemy {
     }
     draw(){
         if (!this.free){
+            this.game.ctx.drawImage(this.image, this.x, this.y)
              this.game.ctx.strokeRect(this.x, this.y, this.width, this.height);
             this.game.ctx.fillText(this.lives, this.x + this.width * 0.5, this.y + this.height * 0.5);
+        }
+    }
+}
+
+class Beetlemorph extends Enemy {
+    constructor(game){
+        super(game)
+        this.image = document.getElementById('beetlemorph')
+    }
+
+    start(){
+        super.start()
+        this.speedX = 0;
+        this.speedY = Math.random() * 2 + 0.2;
+        this.lives = 2;
+    }
+    update(){
+        super.update()
+        if (!this.free){
+            if (this.isAlive()){
+                this.hit()
+            }
         }
     }
 }
