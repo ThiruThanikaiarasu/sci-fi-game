@@ -13,21 +13,29 @@ class Game {
         this.mouse = {
             x: undefined,
             y: undefined,
-            pressed: false
+            width: 1,
+            height: 1,
+            pressed: false,
+            fired: false
         }
 
         this.start()
 
         window.addEventListener('resize', e => { // arrow function inherit from parent class
-            console.log(e)
+            // console.log(e)
             this.resize(e.target.innerWidth, e.target.innerHeight)
         })
 
         window.addEventListener('mousedown', e => {
-            // e.preventDefault()
             this.mouse.x = e.x
             this.mouse.y = e.y
-            console.log(e)
+            this.mouse.pressed = true
+        })
+
+        window.addEventListener('mouseup', e => {
+            this.mouse.x = e.x
+            this.mouse.y = e.y
+            this.mouse.pressed = false
         })
     }
 
@@ -42,9 +50,17 @@ class Game {
         this.height = height
         this.ctx.fillStyle = 'green'
     }
+    checkCollision(rect1, rect2){
+        return (
+            rect1.x < rect2.x + rect2.width &&
+            rect1.x + rect1.width > rect2.x &&
+            rect1.y < rect2.y + rect2.height &&
+            rect1.y + rect1.height > rect2.y
+        ) 
+    }
     createEnemyPool(){
         for (let i = 0; i < this.numberOfEnemies; i++){
-            this.enemyPool.push(new Enemy(this))
+            this.enemyPool.push(new Enemy(this));
         }
     }
     getEnemy(){
@@ -59,7 +75,7 @@ class Game {
             this.enemyTimer = 0 
             const enemy = this.getEnemy()
             if (enemy) enemy.start()
-            console.log(enemy)
+            // console.log(enemy)
         }
 
     }
@@ -89,6 +105,6 @@ window.addEventListener('load', function(){ // once everything is loaded, css, a
         game.render(deltaTime)
         requestAnimationFrame(animate)
     }
-    this.requestAnimationFrame(animate)
+    requestAnimationFrame(animate)
 })
 
