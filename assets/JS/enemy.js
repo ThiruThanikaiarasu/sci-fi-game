@@ -11,7 +11,9 @@ class Enemy {
         this.lives 
         this.free = true
     }
-
+    isAlive(){
+        return this.lives >= 1
+    }
     start(){
         this.x = Math.random() * this.game.width
         this.y = -this.height
@@ -38,7 +40,7 @@ class Enemy {
             }
     
             // Remove enemy if lives are zero
-            if (this.lives < 1) {
+            if (!this.isAlive()) {
                 this.reset();
                 return; // Exit update function to prevent further processing
             }
