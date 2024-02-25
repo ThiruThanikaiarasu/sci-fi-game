@@ -43,6 +43,10 @@
     text-shadow: 1px 1px 1px black;
 }
 
+.assets {
+    display: none;
+}
+
 @media screen and (max-width: 900px){
     #canvas1 {
         background: url('../img/background1920x1080.png');
