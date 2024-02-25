@@ -11,6 +11,7 @@ class Game {
         this.enemyTimer = 0;
         this.enemyInterval = 1000;
 
+
         this.score = 0;
         this.lives;
         this.winningScore = 3;

@@ -27,6 +27,8 @@ class Enemy {
         if (this.game.checkCollision(this, this.game.mouse) && this.game.mouse.pressed && !this.game.mouse.fired){
             this.lives--;
             this.game.mouse.fired = true;
+            this.audio.volume = 0.015
+            this.audio.play()
         }
     }
     update(){
@@ -57,8 +59,8 @@ class Enemy {
         if (!this.free){
             // this.game.ctx.drawImage(this.image, this.x, this.y)
             this.game.ctx.drawImage(this.image, 0, 0,this.spriteWidth, this.spriteHeight, this.x, this.y, this.width, this.height)
-            this.game.ctx.strokeRect(this.x, this.y, this.width, this.height);
-            this.game.ctx.fillText(this.lives, this.x + this.width * 0.5, this.y + this.height * 0.5);
+            // this.game.ctx.strokeRect(this.x, this.y, this.width, this.height);
+            // this.game.ctx.fillText(this.lives, this.x + this.width * 0.5, this.y + this.height * 0.5);
         }
     }
 }
@@ -67,13 +69,14 @@ class Beetlemorph extends Enemy {
     constructor(game){
         super(game)
         this.image = document.getElementById('beetlemorph')
+        this.audio = document.getElementById('beep')
     }
 
     start(){
         super.start()
         this.speedX = 0;
         this.speedY = Math.random() * 2 + 0.2;
-        this.lives = 2;
+        this.lives = 1;
     }
     update(){
         super.update()
