@@ -14,7 +14,7 @@ class Game {
 
         this.score = 0;
         this.lives;
-        this.winningScore = 3;
+        this.winningScore = 100;
         this.message1 = 'Run!';
         this.message2 = 'Or get eaten!';
         this.message3 = 'Press "ENTER" or "R" to start!';
@@ -141,6 +141,9 @@ class Game {
                 this.message1 = 'Well done!';
                 this.message2 = 'You escaped the swarm!';
             }
+            this.enemyPool.forEach(enemy => {
+                enemy.reset()
+            })
         }
     }
     drawStatusText(){

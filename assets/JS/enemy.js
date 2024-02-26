@@ -27,8 +27,8 @@ class Enemy {
         if (this.game.checkCollision(this, this.game.mouse) && this.game.mouse.pressed && !this.game.mouse.fired){
             this.lives--;
             this.game.mouse.fired = true;
-            this.audio.volume = 0.015
-            this.audio.play()
+            this.audio.volume = 1
+            this.audio.load()
         }
     }
     update(){
