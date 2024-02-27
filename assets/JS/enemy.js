@@ -9,13 +9,21 @@ class Enemy {
         this.y;
         this.speedX;
         this.speedY;
+        this.frameX;
+        this.frameY;
+        this.lastFrame;
         this.lives;
         this.free = true;
+
     }
     start(){
         this.x = Math.random() * this.game.width;
         this.y = -this.height;
+        this.frameX = 0;
+        this.frameY = 3;
+        // this.frameY = Math.floor(Math.random() * 4);
         this.free = false;
+        this.lastFrame = 3;
     }
     reset(){
         this.free = true;
@@ -44,21 +52,27 @@ class Enemy {
             this.y += this.speedY;
 
             // check collision
-            
-            if (!this.isAlive()){
-                this.reset();
-                this.game.score++;
-            }
             if (this.y > this.game.height){
+
                 this.reset();
                 this.game.lives--;
+            }
+
+            if (!this.isAlive()) {
+                if(this.game.spriteUpdate){
+                    this.frameX++;
+                    if(this.frameX > this.lastFrame){
+                        this.reset()
+                        if (!this.game.gameOver) this.game.score++;
+                    }
+                }
             }
         }
     }
     draw(){
         if (!this.free){
             // this.game.ctx.drawImage(this.image, this.x, this.y)
-            this.game.ctx.drawImage(this.image, 0, 0,this.spriteWidth, this.spriteHeight, this.x, this.y, this.width, this.height)
+            this.game.ctx.drawImage(this.image, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight,this.spriteWidth, this.spriteHeight, this.x, this.y, this.width, this.height)
             // this.game.ctx.strokeRect(this.x, this.y, this.width, this.height);
             // this.game.ctx.fillText(this.lives, this.x + this.width * 0.5, this.y + this.height * 0.5);
         }
@@ -77,6 +91,7 @@ class Beetlemorph extends Enemy {
         this.speedX = 0;
         this.speedY = Math.random() * 2 + 0.2;
         this.lives = 1;
+        this.lastFrame = 3 
     }
     update(){
         super.update()

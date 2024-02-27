@@ -9,7 +9,7 @@ class Game {
         this.numberOfEnemies = 50;
         this.createEnemyPool();
         this.enemyTimer = 0;
-        this.enemyInterval = 1000;
+        this.enemyInterval = 900;
 
 
         this.score = 0;
@@ -20,6 +20,10 @@ class Game {
         this.message3 = 'Press "ENTER" or "R" to start!';
         this.gameOver = true;
         this.crewImage = document.getElementById('crew')
+
+        this.spriteTimer = 0;
+        this.spriteInterval = 5;
+        this.spriteUpdate = false;
 
         this.mouse = {
             x: undefined,
@@ -146,6 +150,16 @@ class Game {
             })
         }
     }
+    handleSpriteTimer(deltaTime){
+        if(this.spriteTimer < this.spriteInterval){
+            this.spriteTimer += deltaTime;
+            this.spriteUpdate = false 
+        }
+        else{
+            this.spriteTimer = 0;
+            this.spriteUpdate = true;
+        }
+    }
     drawStatusText(){
         this.ctx.save();
         this.ctx.textAlign = 'left';
@@ -167,6 +181,7 @@ class Game {
         this.ctx.restore();
     }
     render(deltaTime){
+        this.handleSpriteTimer(deltaTime);
         this.drawStatusText();
         if (!this.gameOver) this.handleEnemies(deltaTime);
         this.enemyPool.forEach(enemy => {
