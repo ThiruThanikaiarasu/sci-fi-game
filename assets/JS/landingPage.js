@@ -1,0 +1,4 @@
+const closeTab = () => {
+    window.close()
+}
+

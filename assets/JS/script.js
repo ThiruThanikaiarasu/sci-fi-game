@@ -9,7 +9,7 @@ class Game {
         this.numberOfEnemies = 50;
         this.createEnemyPool();
         this.enemyTimer = 0;
-        this.enemyInterval = 900;
+        this.enemyInterval = 750;
 
 
         this.score = 0;
@@ -35,6 +35,7 @@ class Game {
         }
  
         this.resize(window.innerWidth, window.innerHeight);
+        this.start();
         this.resetButton = document.getElementById('resetButton');
         this.resetButton.addEventListener('click', e => {
             this.start();
@@ -80,12 +81,12 @@ class Game {
     start(){
         this.resize(window.innerWidth, window.innerHeight);
         this.score = 0;
-        this.lives = 3;
+        this.lives = 5;
         this.gameOver = false;
         this.enemyPool.forEach(enemy => {
             enemy.reset();
         });
-        for (let i = 0; i < 2; i++){
+        for (let i = 0; i < 5; i++){
             const enemy = this.getEnemy();
             if (enemy) enemy.start();
         }
@@ -184,8 +185,11 @@ class Game {
         this.handleSpriteTimer(deltaTime);
         this.drawStatusText();
         if (!this.gameOver) this.handleEnemies(deltaTime);
+
+        for(let i = this.enemyPool.length - 1 ; i >= 0; i--){
+            this.enemyPool[i].update(deltaTime)
+        }
         this.enemyPool.forEach(enemy => {
-            enemy.update();
             enemy.draw();
         });
     }

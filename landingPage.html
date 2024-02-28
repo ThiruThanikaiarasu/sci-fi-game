@@ -3,28 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Shooter Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/CSS/landingPage.css">
 </head>
 <body>
     <div class="landing-container">
         <ul>
             <li>
-                <button>Start</button>
+                <a href="index.html">
+                    <button onclick="triggerStart()" class="funky-button">
+                        <span class="button-text">Start</span>
+                    </button>
+                </a>
             </li>
             <li>
-                <button>High Score</button>
+                <a href="index.html">
+                    <button onclick="triggerStart()" class="funky-button">
+                        <span class="button-text">High Score</span>
+                    </button>
+                </a>
             </li>
             <li>
-                <button onclick="closeTab()">Exit</button>
+                <button onclick="closeTab()" class="funky-button">
+                    <span class="button-text">Exit</span>
+                </button>
             </li>
             
         </ul>
     </div>
 
-    <script>
-        const closeTab = () => {
-            window.close()
-        }
+    <script src="./assets/JS/landingPage.js">
+
     </script>
 </body>
 </html>

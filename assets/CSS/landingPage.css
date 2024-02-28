@@ -1,0 +1,119 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    background: url("../img/background1920x1080.png");
+    background-repeat: no-repeat;
+    background-size: cover;   
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.landing-container{
+    /* position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%; */
+    
+    
+}
+
+.landing-container ul {
+    height: 250px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/* .landing-container ul li button {
+    padding: 1rem 2rem;
+    font: 30px Bangers;
+    color: white;
+    background-color: transparent;
+    border-radius: 2rem;
+    box-shadow: 1px 1px 1px black;
+    text-shadow: 1px 1px 1px black;
+    transition: 0.3s;
+}
+
+.landing-container ul li button:hover {
+    background: #660985;
+    box-shadow: 4px 4px 4px black;
+    text-shadow: 1px 1px 1px black;
+    transform: scale(1.05);
+} */
+
+
+/* .funky-button {
+    background: transparent;
+    color: white;
+    border: none;
+    padding: 10px 40px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    outline: none; 
+    -ms-transform: skewX(20deg);
+    -webkit-transform: skewX(20deg);
+    transform: skewX(20deg);
+  }
+  
+  .funky-button:hover {
+    background: white;
+    color: purple;
+    -ms-transform: skewX(-20deg);
+    -webkit-transform: skewX(-20deg);
+    transform: skewX(-20deg);
+  } */
+
+  .funky-button {
+    background: transparent;
+    color: white;
+    border: none;
+    padding: 10px 40px;
+    font-size: 30px Bangers;
+    cursor: pointer;
+    transition: 0.3s ease;
+    outline: none; 
+    position: relative; /* Added position: relative */
+    -ms-transform: skewX(20deg);
+    -webkit-transform: skewX(20deg);
+    transform: skewX(40deg);
+  }
+
+  .funky-button a {
+    text-decoration: none;
+    color: white;
+  }
+  
+  .button-text {
+    position: relative; 
+    display: inline-block; 
+    -ms-transform: skewX(-20deg); 
+    font: 30px Bangers;
+    -webkit-transform: skewX(-20deg);
+    transform: skewX(-40deg); 
+  }
+  
+  .funky-button:hover, .funky-button a:hover {
+    background: white;
+    color: purple;
+    -ms-transform: skewX(20deg); 
+    -webkit-transform: skewX(20deg);
+    transform: skewX(40deg); 
+  }
+  
+
+  
+
+
+
+
