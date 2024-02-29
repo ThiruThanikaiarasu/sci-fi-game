@@ -10,6 +10,7 @@ class Game {
         this.createEnemyPool();
         this.enemyTimer = 0;
         this.enemyInterval = 750;
+        this.enemyType; 
 
 
         this.score = 0;
@@ -33,6 +34,7 @@ class Game {
             pressed: false,
             fired: false
         }
+        this.isPaused = false
  
         this.resize(window.innerWidth, window.innerHeight);
         this.start();
@@ -40,6 +42,10 @@ class Game {
         this.resetButton.addEventListener('click', e => {
             this.start();
         });
+        this.pauseButton = document.getElementById('pauseButton')
+        this.pauseButton.addEventListener('click', () => {
+            this.togglePause()
+        })
         this.fullScreenButton = document.getElementById('fullScreenButton');
         this.fullScreenButton.addEventListener('click', e => {
             this.toggleFullScreen();
@@ -73,6 +79,8 @@ class Game {
         window.addEventListener('keyup', e => {
             if (e.key === 'Enter' || e.key.toLowerCase() === 'r'){
                 this.start();
+            } else if (e.key.toLowerCase == 'p'){
+                this.togglePause();
             } else if (e.key === ' ' || e.key.toLowerCase() === 'f'){
                 this.toggleFullScreen();
             }
@@ -109,6 +117,11 @@ class Game {
           document.exitFullscreen();
         }
       }
+    togglePause(){
+        console.log("first")
+        this.isPaused = !this.isPaused
+        console.log(this.isPaused)
+    }
     checkCollision(rect1, rect2){
         return (
             rect1.x < rect2.x + rect2.width &&
@@ -118,9 +131,12 @@ class Game {
         )
     }
     createEnemyPool(){
-        for (let i = 0; i < this.numberOfEnemies; i++){
-            this.enemyPool.push(new Beetlemorph(this));
-        }
+        // for (let i = 0; i < this.numberOfEnemies; i++){
+        //     this.enemyPool.push(new Beetlemorph(this));
+        // }
+        this.enemyPool.push(new Phantommorph(this))
+
+        
     }
     getEnemy(){
         for (let i = 0; i < this.enemyPool.length; i++){
@@ -202,6 +218,7 @@ window.addEventListener('load', function(){
     canvas.height = window.innerHeight;
 
     const game = new Game(canvas, ctx);
+    let animationId;
 
     let lastTime = 0;
     function animate(timeStamp){
@@ -209,7 +226,15 @@ window.addEventListener('load', function(){
         lastTime = timeStamp;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         game.render(deltaTime);
-        requestAnimationFrame(animate);
+        if(this.isPaused){
+            console.log("paused")
+            window.cancelAnimationFrame(animationId);
+        } else {
+            console.log("not paused")
+            animationId = requestAnimationFrame(animate);
+        }
+        
     }
-    requestAnimationFrame(animate);
+    animationId = requestAnimationFrame(animate);
+    
 });

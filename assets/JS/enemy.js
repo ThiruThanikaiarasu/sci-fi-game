@@ -12,6 +12,8 @@ class Enemy {
         this.frameX;
         this.frameY;
         this.lastFrame;
+        this.minFrame;
+        this.maxFrame;
         this.lives;
         this.free = true;
 
@@ -32,13 +34,13 @@ class Enemy {
         return this.lives >= 1;
     }
     hit(){
-        if (this.game.checkCollision(this, this.game.mouse) && this.game.mouse.pressed && !this.game.mouse.fired){
+        if (this.game.checkCollision(this, this.game.mouse) && this.game.mouse.pressed && !this.game.mouse.fired && this.isAlive()){
             this.lives--;
             this.game.mouse.fired = true;
             this.audio.volume = 1
             this.audio.load()
         }
-    }
+    }    
     update(){
         if (!this.free){
             // float in
@@ -71,17 +73,42 @@ class Enemy {
     }
     draw(){
         if (!this.free){
-            // this.game.ctx.drawImage(this.image, this.x, this.y)
-            this.game.ctx.drawImage(this.image, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight,this.spriteWidth, this.spriteHeight, this.x, this.y, this.width, this.height)
-            // this.game.ctx.strokeRect(this.x, this.y, this.width, this.height);
-            // this.game.ctx.fillText(this.lives, this.x + this.width * 0.5, this.y + this.height * 0.5);
+            if(this.game.enemyType === 1){
+                this.game.ctx.drawImage(
+                    this.image,
+                    this.frameX * this.spriteWidth,
+                    this.frameY * this.spriteHeight,
+                    this.spriteWidth,
+                    this.spriteHeight,
+                    this.x,
+                    this.y,
+                    this.width,
+                    this.height
+                );
+            } else if(this.game.enemyType === 3){
+                this.game.ctx.save();
+                this.game.ctx.scale(this.scaleX, this.scaleY);
+                this.game.ctx.drawImage(
+                    this.image,
+                    this.frameX * this.spriteWidth,
+                    this.frameY * this.spriteHeight,
+                    this.spriteWidth,
+                    this.spriteHeight,
+                    this.x / this.scaleX, // Adjusted x-coordinate for scaling
+                    this.y / this.scaleY, // Adjusted y-coordinate for scaling
+                    this.width,
+                    this.height
+                );
+                this.game.ctx.restore();
+            }
         }
-    }
+    }    
 }
 
 class Beetlemorph extends Enemy {
     constructor(game){
         super(game)
+        this.game.enemyType = 1
         this.image = document.getElementById('beetlemorph')
         this.audio = document.getElementById('beep')
     }
@@ -101,4 +128,40 @@ class Beetlemorph extends Enemy {
             }
         }
     }
+}
+
+class Phantommorph extends Enemy {
+    constructor(game){
+        super(game)
+        this.game.enemyType = 3
+        this.scaleX = 2
+        this.scaleY = 2
+
+        this.image = document.getElementById('phantommorph')
+        this.audio = document.getElementById('beep')
+    }
+
+    start(){
+        super.start()
+        this.speedX = 0;
+        this.speedY = 0.25;
+        this.lives = 20;
+        this.lastFrame = 12 
+    }
+    update(){
+        super.update()
+        if (!this.free){
+            if(this.lives >= 3){
+                this.maxFrame = 0;
+            } else if(this.lives == 2){
+                this.maxFrame = 3;
+            } else {
+                this.maxFrame = 7;
+            }
+            if (this.isAlive()){
+                this.hit()
+            }
+        }
+    } 
+
 }
