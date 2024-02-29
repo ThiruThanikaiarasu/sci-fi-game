@@ -123,6 +123,9 @@ class Game {
         console.log(this.isPaused)
     }
     checkCollision(rect1, rect2){
+        if(this.enemyType == 3){
+            
+        }
         return (
             rect1.x < rect2.x + rect2.width &&
             rect1.x + rect1.width > rect2.x &&
@@ -134,9 +137,7 @@ class Game {
         // for (let i = 0; i < this.numberOfEnemies; i++){
         //     this.enemyPool.push(new Beetlemorph(this));
         // }
-        this.enemyPool.push(new Phantommorph(this))
-
-        
+        this.enemyPool.push(new Phantommorph(this)) 
     }
     getEnemy(){
         for (let i = 0; i < this.enemyPool.length; i++){
@@ -230,7 +231,6 @@ window.addEventListener('load', function(){
             console.log("paused")
             window.cancelAnimationFrame(animationId);
         } else {
-            console.log("not paused")
             animationId = requestAnimationFrame(animate);
         }
         

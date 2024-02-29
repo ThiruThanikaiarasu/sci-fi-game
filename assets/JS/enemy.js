@@ -40,7 +40,7 @@ class Enemy {
             this.audio.volume = 1
             this.audio.load()
         }
-    }    
+    }     
     update(){
         if (!this.free){
             // float in
@@ -73,7 +73,7 @@ class Enemy {
     }
     draw(){
         if (!this.free){
-            if(this.game.enemyType === 1){
+
                 this.game.ctx.drawImage(
                     this.image,
                     this.frameX * this.spriteWidth,
@@ -85,22 +85,6 @@ class Enemy {
                     this.width,
                     this.height
                 );
-            } else if(this.game.enemyType === 3){
-                this.game.ctx.save();
-                this.game.ctx.scale(this.scaleX, this.scaleY);
-                this.game.ctx.drawImage(
-                    this.image,
-                    this.frameX * this.spriteWidth,
-                    this.frameY * this.spriteHeight,
-                    this.spriteWidth,
-                    this.spriteHeight,
-                    this.x / this.scaleX, // Adjusted x-coordinate for scaling
-                    this.y / this.scaleY, // Adjusted y-coordinate for scaling
-                    this.width,
-                    this.height
-                );
-                this.game.ctx.restore();
-            }
         }
     }    
 }
@@ -115,10 +99,12 @@ class Beetlemorph extends Enemy {
 
     start(){
         super.start()
+        this.x = this.game.width / 2
         this.speedX = 0;
         this.speedY = Math.random() * 2 + 0.2;
         this.lives = 1;
         this.lastFrame = 3 
+
     }
     update(){
         super.update()
@@ -133,35 +119,42 @@ class Beetlemorph extends Enemy {
 class Phantommorph extends Enemy {
     constructor(game){
         super(game)
+        
         this.game.enemyType = 3
         this.scaleX = 2
         this.scaleY = 2
 
         this.image = document.getElementById('phantommorph')
         this.audio = document.getElementById('beep')
+        
     }
 
     start(){
         super.start()
-        this.speedX = 0;
+        this.speedX = 1;
         this.speedY = 0.25;
-        this.lives = 20;
+        this.lives = 2;
         this.lastFrame = 12 
     }
     update(){
         super.update()
         if (!this.free){
-            if(this.lives >= 3){
-                this.maxFrame = 0;
-            } else if(this.lives == 2){
-                this.maxFrame = 3;
-            } else {
-                this.maxFrame = 7;
+            this.x += this.speedX;
+
+            if (this.x >= this.game.width - this.width) {
+                this.speedX = -this.speedX;
+                this.x = this.game.width - this.width;
+            } 
+            
+            else if (this.x <= 0) {
+                this.speedX = Math.abs(this.speedX);
+                this.x = 0; 
             }
             if (this.isAlive()){
                 this.hit()
             }
         }
-    } 
+    }
+     
 
 }
