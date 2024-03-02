@@ -1,0 +1,112 @@
+body {
+    font-family: 'Bangers', Arial, sans-serif; 
+    margin: 0;
+    padding: 0;
+    background: url('../img/background1920x1080.png');
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100vh;
+    cursor: url('../img/gun-pointer.png'), auto;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    font-size: 8rem; 
+    font-family: 'Bangers', Arial, sans-serif; 
+}
+
+.centered-content form {
+    display: grid;
+    grid-template-columns: max-content 1fr; 
+    gap: 10px;
+    padding: 20px; 
+    border-radius: 10px;
+}
+
+.centered-content form label {
+    font-size: 20px; 
+    color: white; 
+    text-align: right;
+}
+
+.centered-content form input[type="text"] {
+    width: 100%; 
+    padding: 10px; 
+    margin-bottom: 10px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    font-size: 16px; 
+}
+
+.centered-content form button {
+    margin-top: 10px; 
+}
+
+
+
+.content-container {
+    text-align: center;
+}
+
+.centered-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+}
+
+.centered-content button {
+    text-align: center;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    font-family: 'Bangers', Arial, sans-serif; 
+    font-size: 30px; 
+    color: white;
+    padding: .5rem 0;
+}
+
+  .button-text {
+    position: relative;
+    display: inline-block;
+    -ms-transform: skewX(20deg);
+    font: 3rem Bangers;
+    -webkit-transform: skewX(20deg);
+    transform: skewX(40deg);
+}
+
+.download-button {
+    border: none;
+    outline: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 24px; 
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: transparent;
+    transition: all 0.3s ease; 
+    -ms-transform: skewX(-20deg);
+    -webkit-transform: skewX(-20deg);
+    transform: skewX(-40deg);
+}
+
+.download-button:hover {
+    background-color: #ffffff;
+    color: purple;
+    -ms-transform: skewX(-20deg);
+    -webkit-transform: skewX(-20deg);
+    transform: skewX(-40deg);
+}
+

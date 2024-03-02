@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/CSS/download.css">
+</head>
+<body>
+    <h1 class="welcome-message">
+        Sci-fi Shooter 
+    </h1>
+    <div class="content-container">
+        <div class="centered-content">
+            <form action="#" method="post">
+                <div>
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required><br>
+                </div>
+                <br>
+                <div>
+                    <label for="reg_no">Reg no:</label>
+                    <input type="text" pattern="[0-9]{12}" title="Please enter a 12-digit register number" required>
+
+                </div>
+                <br>
+                <button type="submit" class="download-button">
+                    <span class="button-text">Download</span>
+                </button>
+            </form>
+        </div>
+    </div>     
+</body>
+</html>
